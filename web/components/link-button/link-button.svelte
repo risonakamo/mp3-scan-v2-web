@@ -6,6 +6,6 @@
   @import "./link-button.sass"
 </style>
 
-<div class="link-button" class:indented>
+<div class="link-button" class:indented on:click>
   <slot/>
 </div>

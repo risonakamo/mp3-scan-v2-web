@@ -2,6 +2,6 @@
 interface Mp3ReviewStatus
 {
     currentItem:string
-    totalItems:string
-    currentItemIndex:string
+    totalItems:number
+    currentItemIndex:number
 }
