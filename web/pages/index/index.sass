@@ -1,34 +1,62 @@
+@use "sass:color"
+
 html
     background: #1c1c1c
-    color: #eeeeee
+    color: #e1e1e1
     font-family: "ubuntu mono"
     font-size: 19px
 
 body,p,h2
     margin: 0
 
+body
+    display: flex
+    justify-content: center
+
 main
-    width: 50%
-    margin: auto
+    margin-top: 80px
+    width: max-content
+    min-width: 300px
 
     .info
-        margin-top: 30%
-        margin-bottom: 65px
+        margin-bottom: 30px
 
         p
-            margin: 3px 0
+            margin: 5px 0
+
+        span
+            &.name
+                color: #b8a63a
+
+            &.folder
+                color: #80acc6
+
+            &.progress1
+                color: #6eb498
+
+            &.progress2
+                color: #11c963
 
     .control-container
+        padding: 2px 0
+
         h2
             font-size: 19px
             font-weight: 400
+            margin: 4px 0 6px
+            color: #ffffff6e
+            padding-left: 19px
 
     .link-button
         padding: 6px 0
         cursor: pointer
+        user-select: none
 
         &.indented
-            padding-left: 30px
+            padding-left: 40px
 
         &:hover
-            color: red
+            color: #c35656
+
+        &:active
+            color: #f14747
