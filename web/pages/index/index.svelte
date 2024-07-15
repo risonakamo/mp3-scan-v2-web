@@ -1,5 +1,5 @@
 <script lang="ts">
-
+    import LinkButton from "@/components/link-button/link-button.svelte";
 </script>
 
 <style lang="sass">
@@ -16,20 +16,18 @@
 
   <div class="controls">
     <div class="control-container">
-      <div class="link-button">
-        - Open Item
-      </div>
+      <LinkButton>- Open Item</LinkButton>
     </div>
 
     <div class="control-container">
-      <div class="link-button">- Next Item</div>
+      <LinkButton>- Next Item</LinkButton>
     </div>
 
     <div class="control-container">
       <h2>Decision:</h2>
-      <div class="link-button indented">- YES</div>
-      <div class="link-button indented">- NO</div>
-      <div class="link-button indented">- MAYBE</div>
+      <LinkButton indented>- YES</LinkButton>
+      <LinkButton indented>- NO</LinkButton>
+      <LinkButton indented>- MAYBE</LinkButton>
     </div>
   </div>
 </main>

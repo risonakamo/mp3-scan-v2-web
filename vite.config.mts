@@ -3,6 +3,7 @@ import checker from "vite-plugin-checker";
 import tsconfigPaths from "vite-tsconfig-paths";
 import {LogLevel,RollupLog,LogHandler} from "rollup";
 import {svelte} from "@sveltejs/vite-plugin-svelte";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 declare const __dirname:string;
 
@@ -12,7 +13,9 @@ export default defineConfig({
     base:"",
 
     plugins:[
-        svelte(),
+        svelte({
+            preprocess:vitePreprocess()
+        }),
         checker({
             typescript:true
         }),

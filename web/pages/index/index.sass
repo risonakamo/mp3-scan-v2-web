@@ -1,15 +1,15 @@
 @use "sass:color"
 
-html
+:global(html)
     background: #1c1c1c
     color: #e1e1e1
     font-family: "ubuntu mono"
     font-size: 19px
 
-body,p,h2
+:global(body,p,h2)
     margin: 0
 
-body
+:global(body)
     display: flex
     justify-content: center
 
@@ -46,17 +46,3 @@ main
             margin: 4px 0 6px
             color: #ffffff6e
             padding-left: 19px
-
-    .link-button
-        padding: 6px 0
-        cursor: pointer
-        user-select: none
-
-        &.indented
-            padding-left: 40px
-
-        &:hover
-            color: #c35656
-
-        &:active
-            color: #f14747
