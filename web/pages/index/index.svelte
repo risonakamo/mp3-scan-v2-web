@@ -2,32 +2,29 @@
 
 </script>
 
-<!-- <style lang="sass">
+<style lang="sass">
   @import "./index.sass"
-</style> -->
+</style>
 
 <main>
   <div class="info">
     <p>Name: something.mp3</p>
     <p>Folder: somewhere</p>
-    <p>Progress: 10/21</p>
+    <p>Progress: 10 / 21</p>
   </div>
 
   <div class="controls">
     <div class="control-container">
       <div class="link-button">
-        Open Item
+        > Open Item
       </div>
     </div>
 
     <div class="control-container">
       <h2>Decision:</h2>
-
-      <div class="control-indent">
-        <div class="link-button">YES</div>
-        <div class="link-button">NO</div>
-        <div class="link-button">MAYBE</div>
-      </div>
+      <div class="link-button indented">YES</div>
+      <div class="link-button indented">NO</div>
+      <div class="link-button indented">MAYBE</div>
     </div>
 
     <div class="control-container">
