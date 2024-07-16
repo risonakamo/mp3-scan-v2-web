@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build -w false",
-    "watch": "vite build -w true"
+    "watch": "vite build -w true",
+    "check": "svelte-check --threshold error"
   },
   "dependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
