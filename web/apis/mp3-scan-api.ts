@@ -30,12 +30,19 @@ export async function decideItem(decision:ReviewDecision):Promise<Mp3ReviewStatu
         decision
     };
 
-    return (await ax.post("/decide-item",req)
-    .catch(async (err:AxiosError):Promise<string>=>{
-        // conflict status code - data is a string error code.
-        if (err.response?.status==HttpStatusCode.Conflict)
+    try
+    {
+        return (await ax.post("/decide-item",req)).data;
+    }
+
+    catch (e)
+    {
+        // if error, the response is probably a string and ok to return anyway
+        if (e instanceof AxiosError)
         {
-            return err.response.data;
+            return e.response?.data;
         }
-    })).data;
+
+        throw e;
+    }
 }

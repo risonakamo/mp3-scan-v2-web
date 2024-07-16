@@ -46,12 +46,13 @@
 
   // --- state control
   /** update the state vars given a new status obj. if the item successfully changed, resets the
-   *  current decision */
+   *  current decision and error text */
   function updateStatus(newstatus:Mp3ReviewStatus):void
   {
     if (itemName!=newstatus.currentItem)
     {
       currentDecision=undefined;
+      errorText="";
     }
 
     itemName=newstatus.currentItem;
@@ -78,9 +79,10 @@
 
     const newStatus:Mp3ReviewStatus|string=await decideItem(currentDecision);
 
+    // if new status is string, it is an error code to be displayed. display the error code
     if (typeof newStatus=="string")
     {
-      errorText=newStatus;
+      errorText=`!! ${newStatus} !!`;
     }
 
     else
@@ -136,7 +138,7 @@
       <p>Progress:</p>
     {/if}
     <p>[=====&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-    <p>&nbsp</p>
+    <p><span class="error">{errorText}</span>&nbsp</p>
   </div>
 
   <div class="controls">
