@@ -2,13 +2,17 @@
     padding: 6px 0
     cursor: pointer
     user-select: none
+    --selected-colour: #11c963
 
     &.indented
         padding-left: 40px
 
     &.selected
-        color: #11c963
+        color: var(--selected-colour)
         cursor: default
+
+        &:hover,&:active
+            color: var(--selected-colour)
 
     &:hover
         color: #c35656

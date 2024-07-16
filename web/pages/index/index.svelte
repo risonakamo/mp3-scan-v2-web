@@ -1,6 +1,7 @@
 <script lang="ts">
   import {onMount} from "svelte";
 
+
   import LinkButton from "@/components/link-button/link-button.svelte";
   import {getStatus, openItem} from "@/apis/mp3-scan-api";
 
@@ -12,8 +13,6 @@
 
   var currentDecision:ReviewDecision|undefined=undefined;
 
-
-  // --- array config
   const decisionItems:DecisionItem[]=[
     {
       decision:"yes",
@@ -29,8 +28,10 @@
     }
   ];
 
+  var decisionItems2:DecisionItem2[]=[];
 
 
+  // --- construction
   onMount(async ()=>{
     // get reviewer status and set states
     const gotStatus:Mp3ReviewStatus=await getStatus();
@@ -39,6 +40,8 @@
     progressMax=gotStatus.totalItems;
   });
 
+
+  // --- handlers
   /** clicked open item button. trigger to open item */
   function h_openItemClick():void
   {
@@ -46,6 +49,29 @@
   }
 
 
+  // --- effects
+  // decision items array update
+  $: {
+    decisionItems2=decisionItems.map((item:DecisionItem):DecisionItem2=>{
+      var displayText:string=`- ${item.displayText}`;
+      const selected:boolean=item.decision==currentDecision;
+
+      if (selected)
+      {
+        displayText=`* ${item.displayText}`;
+      }
+
+      return {
+        decision:item.decision,
+        displayText,
+        selected,
+        onClick():void
+        {
+          currentDecision=item.decision;
+        }
+      };
+    });
+  }
 </script>
 
 <style lang="sass">
@@ -80,9 +106,11 @@
 
     <div class="control-container">
       <h2>Decision:</h2>
-      <LinkButton indented selected>- YES</LinkButton>
-      <LinkButton indented>- NO</LinkButton>
-      <LinkButton indented>- MAYBE</LinkButton>
+      {#each decisionItems2 as item}
+        <LinkButton indented selected={item.selected} on:click={item.onClick}>
+          {item.displayText}
+        </LinkButton>
+      {/each}
     </div>
   </div>
 </main>
