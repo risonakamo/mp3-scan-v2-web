@@ -13,6 +13,8 @@
 
   var currentDecision:ReviewDecision|undefined=undefined;
 
+  var errorText:string="";
+
   const decisionItems:DecisionItem[]=[
     {
       decision:"yes",
@@ -28,6 +30,7 @@
     }
   ];
 
+  // state of the decision buttons
   var decisionItems2:DecisionItem2[]=[];
 
 
@@ -42,9 +45,15 @@
 
 
   // --- state control
-  /** update the state vars given a new status obj */
+  /** update the state vars given a new status obj. if the item successfully changed, resets the
+   *  current decision */
   function updateStatus(newstatus:Mp3ReviewStatus):void
   {
+    if (itemName!=newstatus.currentItem)
+    {
+      currentDecision=undefined;
+    }
+
     itemName=newstatus.currentItem;
     itemFolder=newstatus.currentItemFolder,
     progressNow=newstatus.currentItemIndex+1;
@@ -117,6 +126,7 @@
       <p>Progress:</p>
     {/if}
     <p>[=====&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+    <p>&nbsp</p>
   </div>
 
   <div class="controls">
