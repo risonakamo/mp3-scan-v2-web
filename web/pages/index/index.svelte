@@ -4,10 +4,32 @@
   import LinkButton from "@/components/link-button/link-button.svelte";
   import {getStatus, openItem} from "@/apis/mp3-scan-api";
 
+  // --- states
   var itemName:string="";
   var itemFolder:string="";
   var progressNow:number=0;
   var progressMax:number=0;
+
+  var currentDecision:ReviewDecision|undefined=undefined;
+
+
+  // --- array config
+  const decisionItems:DecisionItem[]=[
+    {
+      decision:"yes",
+      displayText:"YES"
+    },
+    {
+      decision:"no",
+      displayText:"NO",
+    },
+    {
+      decision:"maybe",
+      displayText:"MAYBE"
+    }
+  ];
+
+
 
   onMount(async ()=>{
     // get reviewer status and set states
@@ -58,7 +80,7 @@
 
     <div class="control-container">
       <h2>Decision:</h2>
-      <LinkButton indented>- YES</LinkButton>
+      <LinkButton indented selected>- YES</LinkButton>
       <LinkButton indented>- NO</LinkButton>
       <LinkButton indented>- MAYBE</LinkButton>
     </div>

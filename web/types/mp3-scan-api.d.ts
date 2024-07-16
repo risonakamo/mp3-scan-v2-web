@@ -1,3 +1,5 @@
+type ReviewDecision="yes"|"no"|"maybe"
+
 /** status of backend */
 interface Mp3ReviewStatus
 {
