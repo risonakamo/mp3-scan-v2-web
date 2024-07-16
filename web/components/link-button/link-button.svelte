@@ -1,17 +1,18 @@
 <script lang="ts">
   import {createEventDispatcher} from "svelte";
 
+  export var indented:boolean=false;
+  export var selected:boolean=false;
+  export var disabled:boolean=false;
+
   const dispatch=createEventDispatcher<{
     click:void
   }>();
 
-  export var indented:boolean=false;
-  export var selected:boolean=false;
-
-  /** click only triggered if element is not selected */
+  /** passthrough click event, but disabled if selected or disabled */
   function h_click():void
   {
-    if (selected)
+    if (selected || disabled)
     {
       return;
     }
@@ -25,6 +26,6 @@
   @import "./link-button.sass"
 </style>
 
-<div class="link-button" class:indented on:click={h_click} class:selected>
+<div class="link-button" class:indented on:click={h_click} class:selected class:disabled>
   <slot/>
 </div>

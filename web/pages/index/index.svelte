@@ -101,7 +101,7 @@
     </div>
 
     <div class="control-container">
-      <LinkButton>- Next Item</LinkButton>
+      <LinkButton disabled={currentDecision==undefined}>- Next Item</LinkButton>
     </div>
 
     <div class="control-container">
