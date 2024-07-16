@@ -4,6 +4,7 @@ type ReviewDecision="yes"|"no"|"maybe"
 interface Mp3ReviewStatus
 {
     currentItem:string
+    currentItemFolder:string
     totalItems:number
     currentItemIndex:number
 }

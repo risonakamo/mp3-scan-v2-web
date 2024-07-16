@@ -36,6 +36,7 @@
     // get reviewer status and set states
     const gotStatus:Mp3ReviewStatus=await getStatus();
     itemName=gotStatus.currentItem;
+    itemFolder=gotStatus.currentItemFolder,
     progressNow=gotStatus.currentItemIndex+1;
     progressMax=gotStatus.totalItems;
   });
