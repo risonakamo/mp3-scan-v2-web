@@ -76,9 +76,19 @@
       return;
     }
 
-    const newStatus:Mp3ReviewStatus=await decideItem(currentDecision);
+    const newStatus:Mp3ReviewStatus|string=await decideItem(currentDecision);
 
-    updateStatus(newStatus);
+    if (typeof newStatus=="string")
+    {
+      errorText=newStatus;
+    }
+
+    else
+    {
+      // todo: risky, assumes if not string then it is the correct shape. do more detections
+      updateStatus(newStatus);
+    }
+
   }
 
 
