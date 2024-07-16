@@ -8,3 +8,9 @@ interface Mp3ReviewStatus
     totalItems:number
     currentItemIndex:number
 }
+
+/** request to make decision */
+interface ItemDecisionRequest
+{
+    decision:ReviewDecision
+}

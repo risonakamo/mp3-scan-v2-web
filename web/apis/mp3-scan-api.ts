@@ -21,3 +21,13 @@ export async function nextItem():Promise<Mp3ReviewStatus>
 {
     return (await ax.get("/next-item")).data;
 }
+
+/** request to make decision */
+export async function decideItem(decision:ReviewDecision):Promise<Mp3ReviewStatus>
+{
+    const req:ItemDecisionRequest={
+        decision
+    };
+
+    return (await ax.post("/decide-item",req)).data;
+}

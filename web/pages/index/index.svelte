@@ -3,7 +3,7 @@
 
 
   import LinkButton from "@/components/link-button/link-button.svelte";
-  import {getStatus, openItem} from "@/apis/mp3-scan-api";
+  import {decideItem, getStatus, openItem} from "@/apis/mp3-scan-api";
 
   // --- states
   var itemName:string="";
@@ -35,11 +35,21 @@
   onMount(async ()=>{
     // get reviewer status and set states
     const gotStatus:Mp3ReviewStatus=await getStatus();
-    itemName=gotStatus.currentItem;
-    itemFolder=gotStatus.currentItemFolder,
-    progressNow=gotStatus.currentItemIndex+1;
-    progressMax=gotStatus.totalItems;
+
+    updateStatus(gotStatus);
   });
+
+
+
+  // --- state control
+  /** update the state vars given a new status obj */
+  function updateStatus(newstatus:Mp3ReviewStatus):void
+  {
+    itemName=newstatus.currentItem;
+    itemFolder=newstatus.currentItemFolder,
+    progressNow=newstatus.currentItemIndex+1;
+    progressMax=newstatus.totalItems;
+  }
 
 
   // --- handlers
@@ -47,6 +57,19 @@
   function h_openItemClick():void
   {
     openItem();
+  }
+
+  /** clicked next button. send the decision */
+  async function h_nextButtonClick():Promise<void>
+  {
+    if (!currentDecision)
+    {
+      return;
+    }
+
+    const newStatus:Mp3ReviewStatus=await decideItem(currentDecision);
+
+    updateStatus(newStatus);
   }
 
 
@@ -102,7 +125,9 @@
     </div>
 
     <div class="control-container">
-      <LinkButton disabled={currentDecision==undefined}>- Next Item</LinkButton>
+      <LinkButton disabled={currentDecision==undefined} on:click={h_nextButtonClick}>
+        - Next Item
+      </LinkButton>
     </div>
 
     <div class="control-container">
