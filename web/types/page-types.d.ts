@@ -12,4 +12,5 @@ interface DecisionItem2 extends DecisionItem
 {
     onClick():void
     selected:boolean
+    disabled:boolean
 }

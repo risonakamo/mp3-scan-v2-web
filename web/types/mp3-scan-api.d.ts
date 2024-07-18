@@ -5,8 +5,11 @@ interface Mp3ReviewStatus
 {
     currentItem:string
     currentItemFolder:string
+
     totalItems:number
     currentItemIndex:number
+
+    noMoreItems:boolean
 }
 
 /** request to make decision */

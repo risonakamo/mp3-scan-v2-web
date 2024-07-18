@@ -1,20 +1,12 @@
 <script lang="ts">
   import {onMount} from "svelte";
 
-
   import LinkButton from "@/components/link-button/link-button.svelte";
   import {decideItem, getStatus, openItem} from "@/apis/mp3-scan-api";
 
-  // --- states
-  var itemName:string="";
-  var itemFolder:string="";
-  var progressNow:number=0;
-  var progressMax:number=0;
 
-  var currentDecision:ReviewDecision|undefined=undefined;
 
-  var errorText:string="";
-
+  // --- consts
   const decisionItems:DecisionItem[]=[
     {
       decision:"yes",
@@ -30,8 +22,29 @@
     }
   ];
 
+
+
+  // --- states
+  // info zone display values
+  var itemName:string="";
+  var itemFolder:string="";
+
+  // progress counter values
+  var progressNow:number=0;
+  var progressMax:number=0;
+
+  // the currently selected decision
+  var currentDecision:ReviewDecision|undefined=undefined;
+
+  // displays error text in error text field
+  var errorText:string="";
+
+  // when set, locks down all buttons and displays no more items
+  var allDone:boolean=false;
+
   // state of the decision buttons
   var decisionItems2:DecisionItem2[]=[];
+
 
 
   // --- construction
@@ -49,6 +62,17 @@
    *  current decision and error text */
   function updateStatus(newstatus:Mp3ReviewStatus):void
   {
+    // special setting when no more items
+    if (newstatus.noMoreItems)
+    {
+      allDone=true;
+      progressNow=newstatus.totalItems;
+      progressMax=newstatus.totalItems;
+      errorText="";
+      currentDecision=undefined;
+      return;
+    }
+
     if (itemName!=newstatus.currentItem)
     {
       currentDecision=undefined;
@@ -94,8 +118,8 @@
   }
 
 
-  // --- effects
-  // decision items array update
+  // --- reactives
+  // render decision items 2 array
   $: {
     decisionItems2=decisionItems.map((item:DecisionItem):DecisionItem2=>{
       var displayText:string=`- ${item.displayText}`;
@@ -113,7 +137,8 @@
         onClick():void
         {
           currentDecision=item.decision;
-        }
+        },
+        disabled:allDone
       };
     });
   }
@@ -125,37 +150,39 @@
 
 <main>
   <div class="info">
-    <p>Name: <span class="name">{itemName}</span></p>
-    <p>Folder: <span class="folder">{itemFolder}</span></p>
-    {#if progressNow>0 && progressMax>0}
-      <p>
-        Progress:
-        <span class="progress1">{progressNow}</span>
-        /
-        <span class="progress2">{progressMax}</span>
-      </p>
+    {#if !allDone}
+      <p>Name: <span class="name">{itemName}</span></p>
+      <p>Folder: <span class="folder">{itemFolder}</span></p>
     {:else}
-      <p>Progress:</p>
+      <p>No More Items</p>
     {/if}
+    <p>
+      Progress:
+      <span class="progress1">{progressNow}</span>
+      /
+      <span class="progress2">{progressMax}</span>
+    </p>
     <p>[=====&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</p>
     <p><span class="error">{errorText}</span>&nbsp</p>
   </div>
 
   <div class="controls">
     <div class="control-container">
-      <LinkButton on:click={h_openItemClick}>- Open Item</LinkButton>
+      <LinkButton on:click={h_openItemClick} disabled={allDone}>- Open Item</LinkButton>
     </div>
 
     <div class="control-container">
-      <LinkButton disabled={currentDecision==undefined} on:click={h_nextButtonClick}>
+      <LinkButton disabled={currentDecision==undefined || allDone} on:click={h_nextButtonClick}>
         - Next Item
       </LinkButton>
     </div>
 
     <div class="control-container">
       <h2>Decision:</h2>
-      {#each decisionItems2 as item}
-        <LinkButton indented selected={item.selected} on:click={item.onClick}>
+      {#each decisionItems2 as item (item.decision)}
+        <LinkButton indented selected={item.selected} on:click={item.onClick}
+          disabled={item.disabled}
+        >
           {item.displayText}
         </LinkButton>
       {/each}
