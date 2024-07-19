@@ -46,6 +46,8 @@
   // state of the decision buttons
   var decisionItems2:DecisionItem2[]=[];
 
+  var docTitle:string="Mp3 Reviewer";
+
 
 
   // --- construction
@@ -71,6 +73,7 @@
       progressMax=newstatus.totalItems;
       errorText="";
       currentDecision=undefined;
+      docTitle="Mp3 Reviewer: No Items";
       return;
     }
 
@@ -84,6 +87,7 @@
     itemFolder=newstatus.currentItemFolder,
     progressNow=newstatus.currentItemIndex+1;
     progressMax=newstatus.totalItems;
+    docTitle=`Mp3 Reviewer: ${newstatus.currentItem}`;
   }
 
 
@@ -148,6 +152,10 @@
 <style lang="sass">
   @import "./index.sass"
 </style>
+
+<svelte:head>
+  <title>{docTitle}</title>
+</svelte:head>
 
 <main>
   <div class="info">
