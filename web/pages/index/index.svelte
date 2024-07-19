@@ -2,6 +2,7 @@
   import {onMount} from "svelte";
 
   import LinkButton from "@/components/link-button/link-button.svelte";
+  import ProgressBar from "@/components/progress-bar/progress-bar.svelte";
   import {decideItem, getStatus, openItem} from "@/apis/mp3-scan-api";
 
 
@@ -162,7 +163,7 @@
       /
       <span class="progress2">{progressMax}</span>
     </p>
-    <p>[=====&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+    <ProgressBar currentVal={progressNow} maxVal={progressMax} numChars={30}/>
     <p><span class="error">{errorText}</span>&nbsp</p>
   </div>
 
