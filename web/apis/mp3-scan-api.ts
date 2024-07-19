@@ -24,7 +24,7 @@ export async function nextItem():Promise<Mp3ReviewStatus>
 }
 
 /** request to make decision. might return string as error instead of obj */
-export async function decideItem(decision:ReviewDecision):Promise<Mp3ReviewStatus|string>
+export async function decideItem(decision:Mp3SpecialDir):Promise<Mp3ReviewStatus|string>
 {
     const req:ItemDecisionRequest={
         decision

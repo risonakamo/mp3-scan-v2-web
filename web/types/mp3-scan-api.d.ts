@@ -1,4 +1,4 @@
-type ReviewDecision="yes"|"no"|"maybe"
+type Mp3SpecialDir="yes"|"no"|"maybe"
 
 /** status of backend */
 interface Mp3ReviewStatus
@@ -15,5 +15,5 @@ interface Mp3ReviewStatus
 /** request to make decision */
 interface ItemDecisionRequest
 {
-    decision:ReviewDecision
+    decision:Mp3SpecialDir
 }

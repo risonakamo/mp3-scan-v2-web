@@ -34,7 +34,7 @@
   var progressMax:number=0;
 
   // the currently selected decision
-  var currentDecision:ReviewDecision|undefined=undefined;
+  var currentDecision:Mp3SpecialDir|undefined=undefined;
 
   // displays error text in error text field
   var errorText:string="";
